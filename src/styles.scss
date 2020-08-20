@@ -5,7 +5,7 @@
     padding: 0;
 }
 
-.gap-flex-row{
+.flex-gap-row{
     & > * {
         margin-left: 16px;
         &:first-child{
@@ -14,7 +14,7 @@
     }
 }
 
-.gap-flex-column{
+.flex-gap-column{
     & > * {
         margin-bottom: 16px;
         &:last-child{
@@ -24,7 +24,7 @@
 }
 
 @media only screen and (max-width: 763px){
-    .gap-flex-row.collapse{
+    .flex-gap-row.collapse{
         & > * {
             margin-left: 0px;
             margin-bottom: 16px !important;
@@ -35,7 +35,7 @@
         }
     }
 
-    .gap-flex-column.collapse{
+    .flex-gap-column.collapse{
         & > * {
             margin-bottom: 0px;
             margin-left: 16px;

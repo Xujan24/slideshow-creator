@@ -55,8 +55,14 @@ export class VideoTimelineComponent implements OnInit {
     if (this.isVideoPlaying) {
       this.player.nativeElement.play();
     } else {
+      this.player.nativeElement.controls = true;
       this.player.nativeElement.pause();
     }
+  }
+
+  onVideoPlaying(): void {
+    this.player.nativeElement.controls = false;
+    this.isVideoPlaying = true;
   }
 
   videoEnded(): void{

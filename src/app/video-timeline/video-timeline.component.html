@@ -1,8 +1,8 @@
 <section class="section">
     <div class="container is-fluid">
-        <div class="columns gap-flex-row">
+        <div class="columns flex-gap-row">
             <div class="column is-7 video-container">
-                <video #videoPlayer class="video-player" (loadeddata)="dataLoaded($event)"
+                <video #videoPlayer controls playsinline class="video-player" (playing)="onVideoPlaying()" (loadeddata)="dataLoaded($event)"
                     (timeupdate)="updateSliderValue($event)" (ended)="videoEnded()">
                     <source
                         src="../../assets/Interstellar - Docking Scene 1080p IMAX HD.mp4" />
@@ -18,8 +18,8 @@
             </div>
         </div>
 
-        <div class="timeline-container gap-flex-row collapse" *ngIf="videoLoaded">
-            <span class="player-controls gap-flex-column collapse">
+        <div class="timeline-container flex-gap-row collapse" *ngIf="videoLoaded">
+            <span class="player-controls flex-gap-column collapse">
                 <span>
                     <a *ngIf="!isVideoPlaying" (click)="playPauseVideo()"><i class="fas fa-play-circle"></i> Play</a>
                     <a *ngIf="isVideoPlaying" (click)="playPauseVideo()"><i class="fas fa-pause-circle"></i> Pause</a>
