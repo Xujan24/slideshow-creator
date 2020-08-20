@@ -1,6 +1,6 @@
 <section class="section">
     <div class="container is-fluid">
-        <div class="columns">
+        <div class="columns gap-flex-row">
             <div class="column is-7 video-container">
                 <video #videoPlayer class="video-player" (loadeddata)="dataLoaded($event)"
                     (timeupdate)="updateSliderValue($event)" (ended)="videoEnded()">
@@ -12,14 +12,14 @@
             <div class="column is-5 is-hidden-mobile slides-container">
                 <pdf-viewer
                     src="../../assets/Presentation.pdf"
-                    [original-size]="false" [fit-to-page]="false" [autoresize]="true" [show-all]="false"
+                    [original-size]="false" [fit-to-page]="false" zoom-scale="page-width" [autoresize]="true" [show-all]="false"
                     [(page)]="currentPage">
                 </pdf-viewer>
             </div>
         </div>
 
-        <div class="timeline-container" *ngIf="videoLoaded">
-            <span class="player-controls">
+        <div class="timeline-container gap-flex-row collapse" *ngIf="videoLoaded">
+            <span class="player-controls gap-flex-column collapse">
                 <span>
                     <a *ngIf="!isVideoPlaying" (click)="playPauseVideo()"><i class="fas fa-play-circle"></i> Play</a>
                     <a *ngIf="isVideoPlaying" (click)="playPauseVideo()"><i class="fas fa-pause-circle"></i> Pause</a>

@@ -3,7 +3,7 @@
         <h2 class="content is-large" style="margin-bottom: 0px;">Create sections for your talk.</h2>
         <p class="content is-small"><i class="fas fa-info-circle"></i> Help your audience to quickly navigate to different part 
             of your talk, by giving each sections a meaningful title.</p>
-        <div class="columns">
+        <div class="columns flex-gap-row">
             <div class="column is-7">
                 <div class="pdf-container">
                     <pdf-viewer
@@ -28,13 +28,13 @@
                 <button style="display: block;margin-bottom: 1rem;" class="button is-link is-small"
                     (click)="openCreateDialog()">New Section From Current Slide</button>
 
-                <ng-container *ngIf="sections; else noSections">
+                <ng-container *ngIf="sections.length > 0; else noSections">
                     <ul class="sections">
                         <li *ngFor="let section of sections; let i = index">
                             <a class="section-title"
                                 (click)="setCurrentPage(section.page)">{{section.title | titlecase}} (Page/Slide
                                 {{section.page}}) </a>
-                            <span class="section-controls">
+                            <span class="section-controls gap-flex-row">
                                 <a class="links" (click)="openEditDialog(i)"><i class="fas fa-pencil-alt"></i></a>
                                 <a class="links" (click)="removeSection(i)"><i class="fas fa-times"></i></a>
                             </span>
