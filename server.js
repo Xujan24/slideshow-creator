@@ -4,7 +4,7 @@ const path = require('path');
 
 app.use(express.static(__dirname + '/dist/demo-editor'));
 
-app.listen(process.env.APP_PORT || 8080);
+app.listen(process.env.PORT || 3000);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname + '/dist/demo-editor/index.html'));
