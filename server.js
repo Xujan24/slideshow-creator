@@ -6,7 +6,7 @@ app.use(express.static(__dirname + '/dist'));
 
 app.listen(process.env.APP_PORT || 8080);
 
-app.length('/*', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname + '/dist/demo-editor/index.html'));
 });
 
