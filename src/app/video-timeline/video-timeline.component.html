@@ -1,0 +1,86 @@
+<section class="section">
+    <div class="container is-fluid">
+        <div class="columns">
+            <div class="column is-7 video-container">
+                <video #videoPlayer class="video-player" (loadeddata)="dataLoaded($event)"
+                    (timeupdate)="updateSliderValue($event)" (ended)="videoEnded()">
+                    <source
+                        src="../../assets/Interstellar - Docking Scene 1080p IMAX HD.mp4" />
+                </video>
+            </div>
+
+            <div class="column is-5 is-hidden-mobile slides-container">
+                <pdf-viewer
+                    src="../../assets/Presentation.pdf"
+                    [original-size]="false" [fit-to-page]="false" [autoresize]="true" [show-all]="false"
+                    [(page)]="currentPage">
+                </pdf-viewer>
+            </div>
+        </div>
+
+        <div class="timeline-container" *ngIf="videoLoaded">
+            <span class="player-controls">
+                <span>
+                    <a *ngIf="!isVideoPlaying" (click)="playPauseVideo()"><i class="fas fa-play-circle"></i> Play</a>
+                    <a *ngIf="isVideoPlaying" (click)="playPauseVideo()"><i class="fas fa-pause-circle"></i> Pause</a>
+                </span>
+
+                <span>
+                    <a title="Add a slide to current video time" (click)="openSlidesDialog()"><i
+                            class="fas fa-plus-circle"></i> Add Slide</a>
+                </span>
+            </span>
+            <input #slider class="slider" [(ngModel)]="currentVideoTime" type="range" value="0" min="0"
+                [max]="videoLength" step="any" (input)="sliderValueChanged(slider)" />
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <p class="content is-medium" style="margin-top: 2rem; margin-bottom: 0;">Timeline Info:</p>
+                <ng-container *ngIf="sectionVideoTimeline.length > 0;else noTimeline">
+                    <div class="timeline-info" *ngFor="let section of sectionVideoTimeline; let i = index">
+                        <span class="timeline-title">
+                            <a (click)="goToSectionTimeline(section)">{{section.title}} (Start at: {{section.showTime}} sec.)</a>
+                        </span>
+
+                        <span class="timeline-controls">
+                            <a class="links" (click)="deleteFromTimeline(i)"><i class="fas fa-times"></i></a>
+                        </span>
+                    </div>
+
+                    <button style="margin-top: 1rem;" class="button is-link is-outlined" (click)="saveTimeline()">Next</button>
+                    
+                </ng-container>
+
+                <ng-template #noTimeline>
+                    <p class="content is-small">No slides added to the timeline yet!</p>
+                </ng-template>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" [ngClass]="{'is-active': showSlidesDialog}">
+        <div class="modal-background" (click)="closeSlideDialog()"></div>
+        <div class="modal-content">
+            <div class="container">
+                <p class="content is-large">Select Slide/Section</p>
+                <p class="content is-small">Please select which slide, or section, you want to show at the current video
+                    time.</p>
+
+                <div class="select is-rounded">
+                    <select [(ngModel)]="selectedSectionIdx">
+                        <option *ngFor="let section of sections; let i = index" [value]="i">{{section.title}}</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button class="button is-link" (click)="addSlideToTimeline()">OK</button> &nbsp;
+                    <button class="button" (click)="closeSlideDialog()">Cancle</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

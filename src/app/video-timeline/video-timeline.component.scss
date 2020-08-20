@@ -1,0 +1,118 @@
+.columns{
+    gap: 20px;
+}
+
+.video-container{
+    padding: 0px;
+    background: black;
+}
+.slides-container{
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/assets/dark_background.jpg');
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    pdf-viewer{
+        display: block;
+        max-width: 350px;
+        height: 200px;
+    }
+}
+
+.timeline-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    .player-controls{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        min-width: 100px;
+
+        a{
+            color: rgb(0,0,0);
+            border: 1px solid;
+            font-size: 14px;
+            padding: 0.5rem;
+        }
+    }
+
+    .slider{
+        -webkit-appearance: none;
+        width: 100%;
+        height: 100px;
+        background: rgb(105, 105, 105);
+        outline: none;
+
+        &::-webkit-slider-thumb{
+            -webkit-appearance: none;
+            appearance: none;
+            width: 2px;
+            height: inherit;
+            background: white;
+            cursor: pointer;
+        }
+
+        &::-moz-range-thumb{
+            width: 2px;
+            height: inherit;
+            background:white;
+            cursor: pointer;
+        }
+    }
+}
+
+.modal-content{
+    background: white;
+    padding: 1rem;
+    
+    .content{
+        margin-bottom: 0px;
+    }
+
+    .select{
+        margin: 1rem 0;
+    }
+}
+
+
+.timeline-info{
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+
+    .timeline-controls{
+        a{
+            color: rgba(0,0,0,0.4);
+
+            transition: color 0.4s ease-in-out;
+            -webkit-transition: color 0.4s ease-in-out;
+            -webkit-transition: color 0,4s ease-in-out;
+
+            &:hover{
+                color: rgb(0,0,0);
+            }
+        }
+    }
+}
+@media only screen and (max-width: 763px) {
+    .timeline-container{
+        flex-direction: column-reverse;
+
+        .player-controls{
+            flex-direction: row;
+            gap: 16px;
+        }
+    }
+}

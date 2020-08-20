@@ -1,0 +1,35 @@
+<section class="section">
+    <div class="container is-fluid">
+        <div class="prez-container">
+            <div class="slider">
+                <input [(ngModel)]="sliderValue" type="range" min="30" max="70" step="1" (input)="pageRendered()"/>
+            </div>
+
+            <div class="prez">
+                <div class="video" [ngStyle]="{'width': sliderValue + '%'}" [hidden]="sliderValue < 35">
+                    <video #videoPlayer class="video-player" controls (timeupdate)="onVideoPlaying($event)">
+                        <source
+                            src="../../assets/Interstellar - Docking Scene 1080p IMAX HD.mp4" />
+                    </video>
+                </div>
+
+                <div class="slides" [ngStyle]="{'width': 100-sliderValue + '%'}" [hidden]="sliderValue > 65" style="height: auto;">
+                    <pdf-viewer
+                        src="../../assets/Presentation.pdf"
+                        [original-size]="true" [fit-to-page]="true" [autoresize]="true" [show-all]="false" [render-text]='false'
+                        [(page)]="currentPage" (after-load-complete)="docLoaded($event)" style="display: block;height: 100%;" (page-rendered)="pageRendered()">
+                    </pdf-viewer>
+                    <span *ngIf="isDocLoaded" class="slide-controls">
+                        <a class="slide-next" (click)="nextSlide()" [hidden]="currentPlayingSlideIdx === timeline.length-1"><i class="fas fa-chevron-right"></i></a>
+                        <a class="slide-previous" (click)="previousSlide()" [hidden]="currentPlayingSlideIdx === 0"><i class="fas fa-chevron-left"></i></a>
+                        <span class="sync-controls">
+                            <a class="sync-video" (click)="syncWithVideo()" title="Sync with Video">Sync <i class="fas fa-video base-icon"></i></a>
+                            <a class="sync-slide" (click)="syncWithSlide()" title="Sync with Current slide">Sync <i class="fab fa-slideshare base-icon"></i></a>
+                        </span>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

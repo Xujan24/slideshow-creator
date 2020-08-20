@@ -1,0 +1,106 @@
+<section class="section">
+    <div class="container is-fluid">
+        <h2 class="content is-large" style="margin-bottom: 0px;">Create sections for your talk.</h2>
+        <p class="content is-small"><i class="fas fa-info-circle"></i> Help your audience to quickly navigate to different part 
+            of your talk, by giving each sections a meaningful title.</p>
+        <div class="columns">
+            <div class="column is-7">
+                <div class="pdf-container">
+                    <pdf-viewer
+                        src="../../assets/Presentation.pdf"
+                        [original-size]="false" [fit-to-page]="false" [autoresize]="true" [show-all]="false"
+                        [(page)]="currentPage" (after-load-complete)="docLoaded($event)">
+                    </pdf-viewer>
+
+                    <span class="content is-small page-count-info" *ngIf="isDocLoaded">Slide {{currentPage}} of
+                        {{pageCount}}</span>
+
+                    <a class="controls previous-button" (click)="previousPage()" *ngIf="isDocLoaded"
+                        [hidden]="currentPage === 1">Previous</a>
+                    <a class="controls next-button" (click)="nextPage()" *ngIf="isDocLoaded"
+                        [hidden]="currentPage === pageCount">Next</a>
+                </div>
+            </div>
+
+            <div class="column is-5">
+                <p class="content is-large">SECTIONS</p>
+
+                <button style="display: block;margin-bottom: 1rem;" class="button is-link is-small"
+                    (click)="openCreateDialog()">New Section From Current Slide</button>
+
+                <ng-container *ngIf="sections; else noSections">
+                    <ul class="sections">
+                        <li *ngFor="let section of sections; let i = index">
+                            <a class="section-title"
+                                (click)="setCurrentPage(section.page)">{{section.title | titlecase}} (Page/Slide
+                                {{section.page}}) </a>
+                            <span class="section-controls">
+                                <a class="links" (click)="openEditDialog(i)"><i class="fas fa-pencil-alt"></i></a>
+                                <a class="links" (click)="removeSection(i)"><i class="fas fa-times"></i></a>
+                            </span>
+
+                        </li>
+                    </ul>
+
+                    <button class="button is-link is-outlined is-large" (click)="saveDataToSessionStorage()"
+                        style="margin-top: 1rem;">Next</button>
+                </ng-container>
+
+                <ng-template #noSections>
+                    <span class="content is-small">No sections created yet!</span>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Create new section dialog box -->
+<div class="modal" [ngClass]="{'is-active': showCreateDialog}">
+    <div class="modal-background" (click)="hideCreateDialog()"></div>
+    <div class="modal-content">
+        <div class="container">
+
+            <p class="content is-medium" style="margin-bottom: 0;;">Title for the section</p>
+            <p class="content is-small">You can edit this (title) later.</p>
+
+            <div class="field">
+                <div class="control">
+                    <input #titleInput class="input" type="text" maxlength="20" [(ngModel)]="sectionTitle"
+                        (keyup.enter)="createSection()" />
+                </div>
+                <div class="content is-small" style="text-align: right;">
+                    {{titleInput.value.length}} / 20
+                </div>
+            </div>
+
+            <button class="button is-link" (click)="createSection()">OK</button> &nbsp;
+            <button class="button" (click)="hideCreateDialog()">Cancle</button>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="hideCreateDialog()"></button>
+</div>
+
+<!-- Edit section title box -->
+<div class="modal" [ngClass]="{'is-active': showEditDialog}">
+    <div class="modal-background" (click)="hideEditDialog()"></div>
+    <div class="modal-content">
+        <div class="container">
+
+            <p class="content is-medium" style="margin-bottom: 0;;">Title for the section</p>
+
+            <div class="field" *ngIf="sections && selectedSectionIdx >= 0">
+                <div class="control">
+                    <input #title class="input" type="text" maxlength="20" [(ngModel)]="sectionTitle"
+                        (keyup.enter)="editSection()" />
+                </div>
+                <div class="content is-small" style="text-align: right;">
+                    {{title.value.length}} / 20
+                </div>
+            </div>
+
+            <button class="button is-link" (click)="editSection()">OK</button> &nbsp;
+            <button class="button" (click)="hideEditDialog()">Cancle</button>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="hideEditDialog()"></button>
+</div>
